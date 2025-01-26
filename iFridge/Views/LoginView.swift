@@ -11,13 +11,13 @@ import FirebaseCore
 
 struct LoginView: View {
     
+    @Binding var isLoggedIn: Bool
+    
     @State var email = ""
     @State var password = ""
     @State var loginStatusMessage = ""
     
-    init() {
-        FirebaseApp.configure()
-    }
+    //init() { FirebaseApp.configure() }
     
     var body: some View {
         NavigationView{
@@ -92,20 +92,21 @@ struct LoginView: View {
     }
     
     private func loginUser() {
-        Auth.auth().signIn(withEmail: email, password: password) { result, err in
+        FirebaseManager.shared.auth.signIn(withEmail: email, password: password) { result, err in
             if let err = err {
                 print("Error logging in:", err)
-                self.loginStatusMessage = "Failed to login user"
+                loginStatusMessage = "Failed to login user"
                 return
             }
             
-            print("Sucessfully logged in: \(result?.user.uid ?? "")")
-            
-            self.loginStatusMessage = "Login successful"
+            guard let user = result?.user else { return }
+            loginStatusMessage = "Login successful: \(user.uid)"
+            isLoggedIn = true
         }
     }
 }
 
 #Preview {
-    LoginView()
+    LoginView(isLoggedIn: .constant(false))
+    
 }

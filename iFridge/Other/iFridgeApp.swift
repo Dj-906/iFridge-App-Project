@@ -12,10 +12,23 @@ import FirebaseAuth
 @main
 struct iFridgeApp: App {
     
+    @State private var isLoggedIn: Bool = false
+    
+    init() {
+        FirebaseApp.configure()
+    }
 
     var body: some Scene {
+        
         WindowGroup {
-            MainPageView()
+            
+            if isLoggedIn {
+                MainPageView()
+            } else {
+                //MainPageView()
+                LoginView(isLoggedIn: $isLoggedIn)
+            }
+            
         }
     }
 }
