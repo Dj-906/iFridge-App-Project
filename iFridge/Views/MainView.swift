@@ -40,7 +40,7 @@ struct MainPageView: View {
                     TextField("Search items...", text: $searchText)
                         .padding(10)
                         .background(Color(.systemGray6))
-                        .cornerRadius(8)
+                        .cornerRadius(12)
 
                     // Microphone icon on the right
                     Button(action: {
@@ -70,12 +70,13 @@ struct MainPageView: View {
                     .padding(.horizontal)
                 }
                 .padding(.top)
+                .padding(.bottom, 8)
 
                 // Vertical List (Items)
                 List {
                     ForEach(filteredItems) { item in
                         ListItemView(item: item)
-                            .padding(.vertical, 8)
+                            .listRowSeparator(.hidden) // Hide the separator line
                     }
                 }
                 .listStyle(PlainListStyle()) // Clean list style
@@ -84,16 +85,17 @@ struct MainPageView: View {
 
                 // Bottom Tab Bar
                 HStack {
-                    TabBarButton(icon: "house.fill", label: "Home")
+                    TabBarButton(icon: "house.fill", label: "MyFridge")
                     Spacer()
                     TabBarButton(icon: "heart.fill", label: "Favorites")
                     Spacer()
-                    TabBarButton(icon: "gearshape.fill", label: "Settings")
+                    TabBarButton(icon: "person.fill", label: "Profile")
                 }
-                .padding()
+                .padding(.vertical)
+                .padding(.horizontal, 48.0)
                 .background(Color(.systemGray6))
             }
-            .navigationTitle("Search")
+            .navigationTitle("My Fridge")
         }
     }
 }
@@ -115,12 +117,13 @@ struct CategoryBox: View {
 
     var body: some View {
         Text(title)
-            .font(.headline)
-            .foregroundColor(.white)
+            .font(.footnote)
+            .fontWeight(isSelected ? .bold :.regular)
+            .foregroundColor(isSelected ? .white : .gray)
             .padding()
-            .background(isSelected ? Color.blue : Color.gray)
-            .cornerRadius(10)
-            .shadow(radius: 4)
+            .background(isSelected ? Color.blue : Color.gray .opacity(12/100))
+            .cornerRadius(12)
+
     }
 }
 
@@ -171,7 +174,7 @@ struct ListItemView: View {
         }
         .padding()
         .background(Color(.systemGray6))
-        .cornerRadius(10)
+        .cornerRadius(12)
         .shadow(radius: 2)
     }
 
