@@ -10,7 +10,6 @@
 		092D2C812D4565FD003CA5AF /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 092D2C802D4565FD003CA5AF /* FirebaseAnalytics */; };
 		092D2C832D4565FD003CA5AF /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 092D2C822D4565FD003CA5AF /* FirebaseAuth */; };
 		092D2C852D4565FD003CA5AF /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 092D2C842D4565FD003CA5AF /* FirebaseStorage */; };
-		092D2CAB2D45A64D003CA5AF /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 092D2CAA2D45A64D003CA5AF /* FirebaseFirestore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,7 +59,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				092D2C812D4565FD003CA5AF /* FirebaseAnalytics in Frameworks */,
-				092D2CAB2D45A64D003CA5AF /* FirebaseFirestore in Frameworks */,
 				092D2C832D4565FD003CA5AF /* FirebaseAuth in Frameworks */,
 				092D2C852D4565FD003CA5AF /* FirebaseStorage in Frameworks */,
 			);
@@ -126,7 +124,6 @@
 				092D2C802D4565FD003CA5AF /* FirebaseAnalytics */,
 				092D2C822D4565FD003CA5AF /* FirebaseAuth */,
 				092D2C842D4565FD003CA5AF /* FirebaseStorage */,
-				092D2CAA2D45A64D003CA5AF /* FirebaseFirestore */,
 			);
 			productName = iFridge;
 			productReference = 092D2C3D2D41BFD2003CA5AF /* iFridge.app */;
@@ -628,11 +625,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 092D2C7F2D4565FD003CA5AF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
-		};
-		092D2CAA2D45A64D003CA5AF /* FirebaseFirestore */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 092D2C7F2D4565FD003CA5AF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseFirestore;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
