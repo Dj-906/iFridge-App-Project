@@ -28,13 +28,14 @@ struct LoginView: View {
     @State var isLoginMode = false
     @State var email = ""
     @State var password = ""
+    @State var isLoggedIn = false
     
     init() {
         
     }
     
     var body: some View {
-        NavigationView{
+        NavigationStack{
             ScrollView{
                 VStack(spacing: 16) {
                     Picker(selection: $isLoginMode, label: Text("Picker here")){
@@ -68,7 +69,7 @@ struct LoginView: View {
                     } label: {
                         HStack {
                             Spacer()
-                            Text(isLoginMode ? "Login" :"Create Accoutn")
+                            Text(isLoginMode ? "Login" :"Create Account")
                                 .foregroundColor(.white)
                                 .padding(.vertical, 12)
                             
@@ -109,6 +110,7 @@ struct LoginView: View {
             print("Sucessfully logged in: \(result?.user.uid ?? "")")
             
             self.loginStatusMessage = "Login successful"
+            self.isLoggedIn = true
         }
     }
     
@@ -132,3 +134,5 @@ struct LoginView: View {
 #Preview {
     LoginView()
 }
+
+
