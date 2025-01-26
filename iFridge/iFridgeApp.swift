@@ -17,6 +17,7 @@ struct iFridgeApp: App {
     var body: some Scene {
         WindowGroup {
             LoginView()
+            MainPageView()
         }
     }
 }
