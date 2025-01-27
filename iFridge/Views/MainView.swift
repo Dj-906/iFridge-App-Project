@@ -83,17 +83,17 @@ struct MainPageView: View {
 
                 Spacer() // Leave space for the bottom tab bar
 
-                // Bottom Tab Bar
-                HStack {
-                    TabBarButton(icon: "house.fill", label: "MyFridge")
-                    Spacer()
-                    TabBarButton(icon: "heart.fill", label: "Favorites")
-                    Spacer()
-                    TabBarButton(icon: "person.fill", label: "Profile")
-                }
-                .padding(.vertical)
-                .padding(.horizontal, 48.0)
-                .background(Color(.systemGray6))
+                // Bottom Tab Bar, added in TabBarView
+                //HStack {
+                //    TabBarButton(icon: "house.fill", label: "MyFridge")
+                //    Spacer()
+                //    TabBarButton(icon: "heart.fill", label: "Favorites")
+                //    Spacer()
+                //    TabBarButton(icon: "person.fill", label: "Profile")
+                //}
+                //.padding(.vertical)
+                //.padding(.horizontal, 48.0)
+                //.background(Color(.systemGray6))
             }
             .navigationTitle("My Fridge")
         }
@@ -173,10 +173,12 @@ struct ListItemView: View {
                 .padding(.leading, 8)
         }
         .padding()
-        .background(Color(.systemGray6))
-        .cornerRadius(12)
-        .shadow(radius: 2)
-    }
+                .background(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(Color.gray, lineWidth: 1)
+                        .background(Color(.systemGray6).cornerRadius(12))
+                )
+            }
 
     // Determine the background color for the day count
     private func dayColor(for days: Int) -> Color {

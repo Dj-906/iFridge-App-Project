@@ -9,6 +9,22 @@ import SwiftUI
 import FirebaseStorage
 import FirebaseAuth
 
+
+struct StatefulPreviewWrapper<Value, Content: View>: View {
+    @State private var value: Value
+    private let content: (Binding<Value>) -> Content
+
+    init(_ initialValue: Value, @ViewBuilder content: @escaping (Binding<Value>) -> Content) {
+        self._value = State(initialValue: initialValue)
+        self.content = content
+    }
+
+    var body: some View {
+        content($value)
+    }
+}
+
+
 class FirebaseManager: NSObject {
     static let shared = FirebaseManager ()
     let auth: Auth
@@ -23,6 +39,8 @@ class FirebaseManager: NSObject {
 }
 
 struct ProfileView: View {
+    
+    @Binding var isLoggedIn: Bool
     
     @State private var currentImage: UIImage?
     
@@ -177,6 +195,8 @@ struct ProfileView: View {
     }
     
     private func signOut(){
+        isLoggedIn = false
+        
         do {
             try FirebaseManager.shared.auth.signOut()
             
@@ -189,5 +209,7 @@ struct ProfileView: View {
 
 
 #Preview {
-    ProfileView()
+    StatefulPreviewWrapper(false) { isLoggedIn in
+        ProfileView(isLoggedIn: isLoggedIn)
+    }
 }

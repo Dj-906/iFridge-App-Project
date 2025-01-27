@@ -23,7 +23,8 @@ struct iFridgeApp: App {
         WindowGroup {
             
             if isLoggedIn {
-                MainPageView()
+               // MainPageView()
+                TabBarView(isLoggedIn: $isLoggedIn)
             } else {
                 //MainPageView()
                 LoginView(isLoggedIn: $isLoggedIn)
