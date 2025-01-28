@@ -12,6 +12,7 @@ struct TabBarView: View {
     @Binding var isLoggedIn: Bool
     
     var body: some View {
+    
         if isLoggedIn{
             
             

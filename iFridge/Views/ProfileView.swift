@@ -1,14 +1,6 @@
-//
-//  ProfileView.swift
-//  iFridge
-//
-//  Created by 刘群 on 1/25/25.
-//
-
 import SwiftUI
 import FirebaseStorage
 import FirebaseAuth
-
 
 struct StatefulPreviewWrapper<Value, Content: View>: View {
     @State private var value: Value
@@ -24,9 +16,8 @@ struct StatefulPreviewWrapper<Value, Content: View>: View {
     }
 }
 
-
 class FirebaseManager: NSObject {
-    static let shared = FirebaseManager ()
+    static let shared = FirebaseManager()
     let auth: Auth
     let storage: Storage
     
@@ -39,26 +30,18 @@ class FirebaseManager: NSObject {
 }
 
 struct ProfileView: View {
-    
     @Binding var isLoggedIn: Bool
     
     @State private var currentImage: UIImage?
-    
     @State private var newSelectedImage: UIImage?
-    
     @State private var statusMessage: String = ""
-    
     @State private var shouldShowImagePicker: Bool = false
-    
     @State private var shouldGoToLogin = false
     
-    
     var body: some View {
-        NavigationView {
-            
+        NavigationStack {
             VStack(spacing: 16) {
-                
-                //show user's email
+                // Show user's email
                 if let user = FirebaseManager.shared.auth.currentUser {
                     Text("Username: \(user.email ?? "No Email Provided")")
                         .font(.headline)
@@ -67,9 +50,9 @@ struct ProfileView: View {
                         .font(.headline)
                 }
                 
-                //
+                // Display user's image
                 let displayImage = newSelectedImage ?? currentImage
-                if let image = displayImage{
+                if let image = displayImage {
                     Image(uiImage: image)
                         .resizable()
                         .frame(width: 128, height: 128)
@@ -84,6 +67,7 @@ struct ProfileView: View {
                         .overlay(RoundedRectangle(cornerRadius: 64).stroke(Color.black, lineWidth: 3))
                 }
                 
+                // Button to select image
                 Button {
                     shouldShowImagePicker.toggle()
                 } label: {
@@ -95,11 +79,12 @@ struct ProfileView: View {
                         .cornerRadius(16)
                 }
                 
+                // Buttons for cancel and upload
                 if newSelectedImage != nil {
-                    HStack{
+                    HStack {
                         Button("Cancel") {
                             newSelectedImage = nil
-                            statusMessage = "Cancelld new image selection"
+                            statusMessage = "Cancelled new image selection"
                         }
                         .padding()
                         .background(Color.gray.opacity(0.2))
@@ -117,6 +102,8 @@ struct ProfileView: View {
                     }
                     .padding(.horizontal)
                 }
+                
+                // Status message
                 Text(statusMessage)
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
@@ -124,6 +111,7 @@ struct ProfileView: View {
                 
                 Spacer()
                 
+                // Sign out button
                 Button {
                     signOut()
                 } label: {
@@ -135,10 +123,13 @@ struct ProfileView: View {
                         .cornerRadius(32)
                 }
                 
-                NavigationLink(destination: LoginView(isLoggedIn: .constant(false)).navigationBarBackButtonHidden(true),
-                               isActive: $shouldGoToLogin) {
+                // Navigation to LoginView
+                NavigationLink(value: shouldGoToLogin) {
                     EmptyView()
-                    
+                }
+                .navigationDestination(isPresented: $shouldGoToLogin) {
+                    LoginView(isLoggedIn: .constant(false))
+                        .navigationBarBackButtonHidden(true)
                 }
                 .hidden()
             }
@@ -146,15 +137,14 @@ struct ProfileView: View {
             .navigationTitle(Text("Profile"))
         }
         .onAppear {
-            
-            
+            // Additional onAppear logic if needed
         }
         .sheet(isPresented: $shouldShowImagePicker) {
             ImagePicker(image: $newSelectedImage)
         }
     }
     
-    //upload new image to firebase
+    // Upload new image to Firebase
     private func persistImageToStorage() {
         guard let newImage = newSelectedImage else {
             return
@@ -172,7 +162,7 @@ struct ProfileView: View {
             return
         }
         
-        ref.putData(imageData, metadata: nil) {metadata, err in
+        ref.putData(imageData, metadata: nil) { metadata, err in
             if let err = err {
                 statusMessage = "Failed to push image to Storage: \(err)"
                 return
@@ -185,28 +175,24 @@ struct ProfileView: View {
                 }
                 
                 self.statusMessage = "Image uploaded successfully"
-                
                 self.currentImage = newImage
-                
                 self.newSelectedImage = nil
-                
             }
         }
     }
     
-    private func signOut(){
+    // Sign out function
+    private func signOut() {
         isLoggedIn = false
         
         do {
             try FirebaseManager.shared.auth.signOut()
-            
             self.shouldGoToLogin = true
         } catch {
             statusMessage = "Failed to sign out"
         }
     }
 }
-
 
 #Preview {
     StatefulPreviewWrapper(false) { isLoggedIn in
