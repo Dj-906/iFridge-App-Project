@@ -10,6 +10,11 @@
 		092D2C812D4565FD003CA5AF /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 092D2C802D4565FD003CA5AF /* FirebaseAnalytics */; };
 		092D2C832D4565FD003CA5AF /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 092D2C822D4565FD003CA5AF /* FirebaseAuth */; };
 		092D2C852D4565FD003CA5AF /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 092D2C842D4565FD003CA5AF /* FirebaseStorage */; };
+		092D33942D49757D003CA5AF /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 092D33932D49757D003CA5AF /* UserNotifications.framework */; };
+		092D33962D4975BF003CA5AF /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 092D33952D4975BF003CA5AF /* AdSupport.framework */; platformFilters = (ios, macos, ); };
+		092D339A2D4975E9003CA5AF /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 092D33992D4975E9003CA5AF /* Security.framework */; };
+		092D339B2D4975FE003CA5AF /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 092D33972D4975CE003CA5AF /* iAd.framework */; platformFilter = ios; };
+		092D339F2D497BA1003CA5AF /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 092D339E2D497BA1003CA5AF /* FirebaseMessaging */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,11 +38,28 @@
 		092D2C3D2D41BFD2003CA5AF /* iFridge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iFridge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		092D2C4E2D41BFD3003CA5AF /* iFridgeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iFridgeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		092D2C582D41BFD3003CA5AF /* iFridgeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iFridgeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		092D33932D49757D003CA5AF /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.2.sdk/System/Library/Frameworks/UserNotifications.framework; sourceTree = DEVELOPER_DIR; };
+		092D33952D4975BF003CA5AF /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.2.sdk/System/Library/Frameworks/AdSupport.framework; sourceTree = DEVELOPER_DIR; };
+		092D33972D4975CE003CA5AF /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.2.sdk/System/Library/Frameworks/iAd.framework; sourceTree = DEVELOPER_DIR; };
+		092D33992D4975E9003CA5AF /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.2.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		092D339D2D49763B003CA5AF /* Exceptions for "iFridge" folder in "iFridge" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 092D2C3C2D41BFD2003CA5AF /* iFridge */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		092D2C3F2D41BFD2003CA5AF /* iFridge */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				092D339D2D49763B003CA5AF /* Exceptions for "iFridge" folder in "iFridge" target */,
+			);
 			path = iFridge;
 			sourceTree = "<group>";
 		};
@@ -58,7 +80,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				092D339F2D497BA1003CA5AF /* FirebaseMessaging in Frameworks */,
+				092D33942D49757D003CA5AF /* UserNotifications.framework in Frameworks */,
+				092D33962D4975BF003CA5AF /* AdSupport.framework in Frameworks */,
 				092D2C812D4565FD003CA5AF /* FirebaseAnalytics in Frameworks */,
+				092D339B2D4975FE003CA5AF /* iAd.framework in Frameworks */,
+				092D339A2D4975E9003CA5AF /* Security.framework in Frameworks */,
 				092D2C832D4565FD003CA5AF /* FirebaseAuth in Frameworks */,
 				092D2C852D4565FD003CA5AF /* FirebaseStorage in Frameworks */,
 			);
@@ -87,6 +114,7 @@
 				092D2C3F2D41BFD2003CA5AF /* iFridge */,
 				092D2C512D41BFD3003CA5AF /* iFridgeTests */,
 				092D2C5B2D41BFD3003CA5AF /* iFridgeUITests */,
+				092D33922D49757D003CA5AF /* Frameworks */,
 				092D2C3E2D41BFD2003CA5AF /* Products */,
 			);
 			sourceTree = "<group>";
@@ -99,6 +127,17 @@
 				092D2C582D41BFD3003CA5AF /* iFridgeUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		092D33922D49757D003CA5AF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				092D33992D4975E9003CA5AF /* Security.framework */,
+				092D33972D4975CE003CA5AF /* iAd.framework */,
+				092D33952D4975BF003CA5AF /* AdSupport.framework */,
+				092D33932D49757D003CA5AF /* UserNotifications.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -124,6 +163,7 @@
 				092D2C802D4565FD003CA5AF /* FirebaseAnalytics */,
 				092D2C822D4565FD003CA5AF /* FirebaseAuth */,
 				092D2C842D4565FD003CA5AF /* FirebaseStorage */,
+				092D339E2D497BA1003CA5AF /* FirebaseMessaging */,
 			);
 			productName = iFridge;
 			productReference = 092D2C3D2D41BFD2003CA5AF /* iFridge.app */;
@@ -409,6 +449,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"iFridge/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = iFridge/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -446,6 +487,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"iFridge/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = iFridge/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -625,6 +667,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 092D2C7F2D4565FD003CA5AF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
+		};
+		092D339E2D497BA1003CA5AF /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 092D2C7F2D4565FD003CA5AF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
