@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Combine
+import UserNotifications
 
 struct RecipeView: View {
     @State private var city: String = "Atlanta" // Set default city to Atlanta
@@ -14,6 +15,8 @@ struct RecipeView: View {
     @ObservedObject var weatherViewModel = WeatherViewModel()
     
     private let weatherService = WeatherService()
+    
+    
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -50,6 +53,32 @@ struct RecipeView: View {
                 }
                 .padding(.leading)  // Left padding for the temperature and description
             }
+            
+            Button("Request Permision for notification"){
+                UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
+                    if granted {
+                        print("All set!")
+                    } else if let error{
+                        print("Failed to request permission: \(error.localizedDescription)")
+                    }
+                }
+                
+            }.padding()
+                .padding(.top,64)
+            
+            Button("Schedule notification") {
+                let content = UNMutableNotificationContent()
+                content.title = "Don't forget your food!"
+                content.body = "Your food has been sitting for 10 days. Check if it’s still good to consume!"
+                content.sound = UNNotificationSound.default
+                
+                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+                
+                let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+                
+                UNUserNotificationCenter.current().add(request)
+            }.padding()
+            
         }
         .padding()
         .onAppear {
