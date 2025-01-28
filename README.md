@@ -1,1 +1,1 @@
-This will contain the description of the project.
+The platform 'Xcode' was utilized in the development of this project. In order to run this code, the user must first install Xcode on their device. Once Xcode  has been opened, the user will click on the option to 'CLone an existing project'. Once prompted, the user will clone the code from the repository and open the project from Xcode. The branch to use for this is the “FoodPage-and-AddButton” branch as it contains all of the most recent updates.
