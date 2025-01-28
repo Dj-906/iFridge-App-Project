@@ -15,18 +15,17 @@ struct MainPageView: View {
     var sampleBoxes = ["All", "Vegan", "Meat", "Keto", "Fruits", "Drinks"]
 
     // Sample data for the vertical list
-    var sampleItems = [
-        ListItem(title: "Grilled Chicken", imageName: "chicken", description: "Meat", count: 4, days: 3),
-        ListItem(title: "Vegan Salad", imageName: "salad", description: "Vegan", count: 2, days: 7),
-        ListItem(title: "Fruit Smoothie", imageName: "smoothie", description: "Fruits", count: 5, days: 12),
-        ListItem(title: "Steak Dinner", imageName: "steak", description: "Meat", count: 3, days: 18),
-        ListItem(title: "Avocado Toast", imageName: "avocado", description: "Vegan", count: 6, days: 1)
+    @State private var sampleItems = [
+        ListItem(title: "Fried Chicken", imageName: "grilled_chicken", description: "Meat", count: 4, days: 3),
+        ListItem(title: "Vegan Salad", imageName: "vegan", description: "Vegan", count: 2, days: 7),
+        ListItem(title: "Strawberries", imageName: "strawberry", description: "Fruits", count: 5, days: 12),
+        ListItem(title: "Steak Dinner", imageName: "steak_dinner", description: "Meat", count: 3, days: 18),
+        ListItem(title: "Carrots", imageName: "carrot", description: "Vegan", count: 6, days: 1)
     ]
 
     // Filtered items based on selected category and search text
     var filteredItems: [ListItem] {
         sampleItems.filter { item in
-            // Filter by selected category (if not "All") and search text
             (selectedCategory == nil || selectedCategory == "All" || item.description == selectedCategory) &&
             (searchText.isEmpty || item.title.localizedCaseInsensitiveContains(searchText))
         }
@@ -34,66 +33,73 @@ struct MainPageView: View {
 
     var body: some View {
         NavigationView {
-            VStack(spacing: 0) {
-                // Search Bar with Microphone
-                HStack {
-                    TextField("Search items...", text: $searchText)
-                        .padding(10)
-                        .background(Color(.systemGray6))
-                        .cornerRadius(12)
+            ZStack {
+                VStack(spacing: 0) {
+                    // Search Bar with Microphone
+                    HStack {
+                        TextField("Search items...", text: $searchText)
+                            .padding(10)
+                            .background(Color(.systemGray6))
+                            .cornerRadius(12)
 
-                    // Microphone icon on the right
-                    Button(action: {
-                        print("Microphone tapped")
-                    }) {
-                        Image(systemName: "mic.fill")
-                            .font(.title3)
-                            .foregroundColor(.blue)
-                            .padding(8)
-                    }
-                }
-                .padding(.horizontal)
-
-                // Horizontal ScrollView (Boxes)
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 16) {
-                        ForEach(sampleBoxes, id: \.self) { category in
-                            CategoryBox(
-                                title: category,
-                                isSelected: selectedCategory == category
-                            )
-                            .onTapGesture {
-                                selectedCategory = category // Update selected category
-                            }
+                        // Microphone icon on the right
+                        Button(action: {
+                            print("Microphone tapped")
+                        }) {
+                            Image(systemName: "mic.fill")
+                                .font(.title3)
+                                .foregroundColor(.blue)
+                                .padding(8)
                         }
                     }
                     .padding(.horizontal)
-                }
-                .padding(.top)
-                .padding(.bottom, 8)
 
-                // Vertical List (Items)
-                List {
-                    ForEach(filteredItems) { item in
-                        ListItemView(item: item)
-                            .listRowSeparator(.hidden) // Hide the separator line
+                    // Horizontal ScrollView (Boxes)
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 16) {
+                            ForEach(sampleBoxes, id: \.self) { category in
+                                CategoryBox(
+                                    title: category,
+                                    isSelected: selectedCategory == category
+                                )
+                                .onTapGesture {
+                                    selectedCategory = category // Update selected category
+                                }
+                            }
+                        }
+                        .padding(.horizontal)
                     }
+                    .padding(.top)
+                    .padding(.bottom, 8)
+
+                    // Vertical List (Items)
+                    List {
+                        ForEach(filteredItems) { item in
+                            ListItemView(item: item)
+                                .listRowSeparator(.hidden) // Hide the separator line
+                        }
+                    }
+                    .listStyle(PlainListStyle()) // Clean list style
+
+                    Spacer() // Leave space for the fixed button
                 }
-                .listStyle(PlainListStyle()) // Clean list style
 
-                Spacer() // Leave space for the bottom tab bar
-
-                // Bottom Tab Bar, added in TabBarView
-                //HStack {
-                //    TabBarButton(icon: "house.fill", label: "MyFridge")
-                //    Spacer()
-                //    TabBarButton(icon: "heart.fill", label: "Favorites")
-                //    Spacer()
-                //    TabBarButton(icon: "person.fill", label: "Profile")
-                //}
-                //.padding(.vertical)
-                //.padding(.horizontal, 48.0)
-                //.background(Color(.systemGray6))
+                // Add New Button
+                VStack {
+                    Spacer()
+                    NavigationLink(destination: AddNewView()) {
+                        Text("Add")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(Color.blue)
+                            .cornerRadius(12)
+                            .padding(.horizontal)
+                            .shadow(radius: 4)
+                    }
+                    .padding(.bottom, 20) // Position near the bottom of the screen
+                }
             }
             .navigationTitle("My Fridge")
         }
@@ -118,12 +124,11 @@ struct CategoryBox: View {
     var body: some View {
         Text(title)
             .font(.footnote)
-            .fontWeight(isSelected ? .bold :.regular)
+            .fontWeight(isSelected ? .bold : .regular)
             .foregroundColor(isSelected ? .white : .gray)
             .padding()
-            .background(isSelected ? Color.blue : Color.gray .opacity(12/100))
+            .background(isSelected ? Color.blue : Color.gray.opacity(12 / 100))
             .cornerRadius(12)
-
     }
 }
 
@@ -133,7 +138,7 @@ struct ListItemView: View {
 
     var body: some View {
         HStack {
-            // Image on the left
+            // Image on the left from Assets
             Image(item.imageName)
                 .resizable()
                 .scaledToFit()
@@ -173,12 +178,12 @@ struct ListItemView: View {
                 .padding(.leading, 8)
         }
         .padding()
-                .background(
-                    RoundedRectangle(cornerRadius: 12)
-                        .stroke(Color.gray, lineWidth: 1)
-                        .background(Color(.systemGray6).cornerRadius(12))
-                )
-            }
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(Color.gray, lineWidth: 1)
+                .background(Color(.systemGray6).cornerRadius(12))
+        )
+    }
 
     // Determine the background color for the day count
     private func dayColor(for days: Int) -> Color {
@@ -192,24 +197,6 @@ struct ListItemView: View {
     }
 }
 
-// Bottom Tab Bar Button
-struct TabBarButton: View {
-    let icon: String
-    let label: String
-
-    var body: some View {
-        VStack {
-            Image(systemName: icon)
-                .font(.title2)
-                .foregroundColor(.blue)
-            Text(label)
-                .font(.caption)
-                .foregroundColor(.blue)
-        }
-    }
-}
-
 #Preview {
     MainPageView()
 }
-

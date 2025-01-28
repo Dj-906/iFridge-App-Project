@@ -79,7 +79,7 @@ struct LoginView: View {
                             .foregroundColor(.gray)
                         
                         NavigationLink(destination: RegisterView()) {
-                            Text("Acreate Account")
+                            Text("Create Account")
                                 .foregroundColor(.blue)
                                 .font(.headline)
                             
